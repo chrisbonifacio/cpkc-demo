@@ -21,10 +21,13 @@ npx ampx generate schema-from-database --connection-uri-secret SQL_CONNECTION_ST
 The data schema assumes your database has a table with the following schema:
 
 ```sql
-create table public.notifications (
-  user_id character varying(40) not null,
-  id character varying(40) primary key not null,
-  message character varying(255) not null
+create table notifications
+(
+    user_id varchar(40)  not null,
+    id      varchar(40)  not null
+        constraint notifications_pk
+            primary key,
+    message varchar(255) not null
 );
 ```
 
