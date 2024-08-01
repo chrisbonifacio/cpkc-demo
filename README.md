@@ -1,3 +1,42 @@
+# Amplify Gen 2 + RDS Postgres
+
+## Data
+
+To start the sandbox for local development run the following command:
+
+```sh
+npx ampx sandbox
+```
+
+In another terminal, set your Postgres database's connection string as a secret for the current sandbox in Parameter Store by running the following command:
+
+```sh
+npx ampx sandbox secret set SQL_CONNECTION_STRING
+```
+
+```sh
+npx ampx generate schema-from-database --connection-uri-secret SQL_CONNECTION_STRING --out amplify/data/schema.sql.ts
+```
+
+The data schema assumes your database has a table with the following schema:
+
+```sql
+create table public.notifications (
+  user_id character varying(40) not null,
+  id character varying(40) primary key not null,
+  message character varying(255) not null
+);
+```
+
+## Auth
+
+1. Replace the metadata url in the `amplify/auth` folder with your SAML provider's when using the `URL` metadata type. Or, you can provide the contents of the metadata file and use the `FILE` metadata type instead.
+2. Configure your SAML Provider's `Entity ID` in the following format `urn:amazon:cognito:sp:<user_pool_id>`
+3. Add the cognito domain as a Callback URL in the format `https://<your_user_pool_domain>.auth.<region>.amazoncognito.com/saml2/idpresponse`. 
+
+This page is helpful for troubleshooting invalid SAML responses:
+https://repost.aws/knowledge-center/cognito-invalid-saml-response-errors
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
