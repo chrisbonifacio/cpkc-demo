@@ -4,7 +4,7 @@ import App from "./App.tsx";
 import "./index.css";
 
 import { Amplify } from "aws-amplify";
-import aws_outputs from "./amplify_outputs.json";
+import aws_outputs from "../amplify_outputs.json";
 Amplify.configure(aws_outputs);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
